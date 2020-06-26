@@ -43,11 +43,14 @@ class Venta(models.Model):
     produc = models.ForeignKey(Producto, default = None, on_delete=models.CASCADE)
     cantidad = models.IntegerField(null = True)
     fecha = models.DateField()
-    monto_final = models.IntegerField(null = True)
     descuento = models.IntegerField(null = True)
 
     def __str__(self):
-        return self.produc, self.cantidad
+        return str(self.produc) +", "+ str(self.cantidad)
+
+    def precio_final(self):
+        precio = (Producto.precio * self.cantidad) - self.descuento
+        return precio
 
 
 class Cliente(models.Model):
