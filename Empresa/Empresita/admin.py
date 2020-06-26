@@ -20,13 +20,19 @@ class ProductoAdmin(admin.ModelAdmin):
 
     )
 
+class ProveedorAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'telefono', 'rut']
+
+    search_fields = ['nombre', 'rut']
+
+#class VentaAdmin(admin.ModelAdmin):
 
 
-
+admin.site.register(Venta,)
 admin.site.register(Direccion,)
 admin.site.register(Cliente, ClienteAdmin)
-admin.site.register(Proveedor,)
+admin.site.register(Proveedor, ProveedorAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Categoria,)
-admin.site.register(Venta,)
+
 
