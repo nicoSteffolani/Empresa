@@ -55,25 +55,14 @@ class Venta(models.Model):
     client = models.ForeignKey(Cliente, default = None, on_delete=models.CASCADE)
     cantidad = models.IntegerField(null = True)
     fecha = models.DateField()
-    descuento = models.FloatField(null = True)
+    descuento = models.BooleanField(null = True)
     monto_final = models.FloatField(null = True)
 
     def __str__(self):
         return str(self.produc) +", "+ str(self.cantidad)
 
-    def desc(self):
-        if self.descuento > 0:
-            return True
-        else:
-            return False
-    
-    desc.boolean = True
-
-    desc.short_description = 'Descuento'
-
-
     def precio_final(self):
-        self.monto_final =  (self.produc.precio * self.cantidad) - self.descuento
+        self.monto_final =  self.produc.precio * self.cantidad
         return self.monto_final
 
     precio_final.short_description = 'Precio Final'
