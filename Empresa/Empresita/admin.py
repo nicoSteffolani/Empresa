@@ -7,6 +7,8 @@ from Empresita.models import *
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'telefono', 'rut']
 
+    search_fields = ['nombre', 'telefono', 'rut']
+
 
 
 
@@ -22,7 +24,7 @@ class ProductoAdmin(admin.ModelAdmin):
         })
 
     )
-    
+
 class productoInline(admin.TabularInline):
     model = Producto
 
