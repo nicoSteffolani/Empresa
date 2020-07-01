@@ -39,19 +39,6 @@ class Producto(models.Model):
         return self.nombre
 
 
-class Venta(models.Model):
-    produc = models.ForeignKey(Producto, default = None, on_delete=models.CASCADE)
-    cantidad = models.IntegerField(null = True)
-    fecha = models.DateField()
-    descuento = models.BooleanField(null = True)
-
-    def __str__(self):
-        return str(self.produc) +", "+ str(self.cantidad)
-
-    def precio_final(self):
-        precio = (Producto.precio * self.cantidad) - self.descuento
-        return precio
-
 
 class Cliente(models.Model):
     rut = models.IntegerField(null = False, unique=True)
@@ -68,11 +55,25 @@ class Venta(models.Model):
     client = models.ForeignKey(Cliente, default = None, on_delete=models.CASCADE)
     cantidad = models.IntegerField(null = True)
     fecha = models.DateField()
-    descuento = models.BooleanField(null = True)
+    descuento = models.FloatField(null = True)
+    monto_final = models.FloatField(null = True)
 
     def __str__(self):
         return str(self.produc) +", "+ str(self.cantidad)
 
+    def desc(self):
+        if self.descuento > 0:
+            return True
+        else:
+            return False
+    
+    desc.boolean = True
+
+    desc.short_description = 'Descuento'
+
+
     def precio_final(self):
-        precio = (Producto.precio * self.cantidad) - self.descuento
-        return precio
+        self.monto_final =  (self.produc.precio * self.cantidad) - self.descuento
+        return self.monto_final
+
+    precio_final.short_description = 'Precio Final'

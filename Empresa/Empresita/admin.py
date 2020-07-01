@@ -25,10 +25,13 @@ class ProveedorAdmin(admin.ModelAdmin):
 
     search_fields = ['nombre', 'rut']
 
-#class VentaAdmin(admin.ModelAdmin):
+class VentaAdmin(admin.ModelAdmin):
+    exclude = ['monto_final']
+
+    list_display = ['produc', 'client', 'cantidad', 'fecha', 'desc', 'precio_final']
 
 
-admin.site.register(Venta,)
+admin.site.register(Venta, VentaAdmin)
 admin.site.register(Direccion,)
 admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Proveedor, ProveedorAdmin)
